@@ -19,29 +19,33 @@ public class Tree extends CommonObject {
         	case 1:
         		gl.glColor3f(0.f,0.6f-(float)(0.2*Math.random()),0.f);
         		break;
-        	case 2:
+        	case 2: // Burning
         		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
         		break;
-        	case 3:
+        	case 3: // Burnt
         		gl.glColor3f(0.f+(float)(0.2*Math.random()),0.f+(float)(0.2*Math.random()),0.f+(float)(0.2*Math.random()));
         		break;
         }
         
-        if ( cellState > 0 )
+        if ( cellState > 0 && cellState < 3)
         {
     		float altitude = (float)height * normalizeHeight ;
     		
     		//float heightFactor, double heightBooster, float smoothFactor[]
     		
-    		gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );
-            gl.glVertex3f( offset+x*stepX-lenY/16.f, offset+y*stepY+lenY/2.f, altitude + 4.f );
-            gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );
-            gl.glVertex3f( offset+x*stepX+lenY/16.f, offset+y*stepY-lenY/2.f, altitude + 4.f );
+            gl.glVertex3f( offset+x*stepX-lenY/16.f, offset+y*stepY+lenY/2.f, altitude + 4.f );//2
+    		gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );//1
 
-    		gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );
-            gl.glVertex3f( offset+x*stepX-lenY/2.f, offset+y*stepY+lenY/16.f, altitude + 4.f );
-            gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );
-            gl.glVertex3f( offset+x*stepX+lenY/2.f, offset+y*stepY-lenY/16.f, altitude + 4.f );
+            gl.glVertex3f( offset+x*stepX+lenY/16.f, offset+y*stepY-lenY/2.f, altitude + 4.f );//4
+            gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );//3
+
+
+            gl.glVertex3f( offset+x*stepX-lenY/2.f, offset+y*stepY+lenY/16.f, altitude + 4.f );//6
+    		gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );//5
+
+            gl.glVertex3f( offset+x*stepX+lenY/2.f, offset+y*stepY-lenY/16.f, altitude + 4.f );//8
+            gl.glVertex3f( offset+x*stepX, offset+y*stepY, altitude );//7
+
         }
     }
 

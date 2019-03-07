@@ -16,7 +16,7 @@ public class WorldOfTrees extends World {
     public void init ( int __dxCA, int __dyCA, double[][] landscape )
     {
     	super.init(__dxCA, __dyCA, landscape);
-    	
+    	int cellState;
     	// add colors
     	
     	for ( int x = 0 ; x < __dxCA ; x++ )
@@ -29,14 +29,14 @@ public class WorldOfTrees extends World {
 		        if ( height >= 0 )
 		        {
 		        	// snowy mountains
-		        	/*
+		        	/**/
 		        	color[0] = height / (float)this.getMaxEverHeight();
 					color[1] = height / (float)this.getMaxEverHeight();
 					color[2] = height / (float)this.getMaxEverHeight();
 					/**/
 		        	
 					// green mountains
-		        	/**/
+		        	/*
 		        	color[0] = height / ( (float)this.getMaxEverHeight() );
 					color[1] = 0.9f + 0.1f * height / ( (float)this.getMaxEverHeight() );
 					color[2] = height / ( (float)this.getMaxEverHeight() );
@@ -45,24 +45,44 @@ public class WorldOfTrees extends World {
 		        else
 		        {
 		        	// water
-					color[0] = -height;
-					color[1] = -height;
-					color[2] = 1.f;
+					color[0] = 0.1f;
+					color[1] = 0.1f;
+					color[2] = 0.5f;
 		        }
 		        this.cellsColorValues.setCellState(x, y, color);
+		        
+		        
     		}
     	
     	// add some objects
     	for ( int i = 0 ; i < 11 ; i++ )
     	{
     		if ( i%10 == 0 )
-    			uniqueObjects.add(new Monolith(110,110+i,this));
+    			uniqueObjects.add(new Monolith(110,110+i,this)); // Colonnes de l arc
+    		
     		else
-    			uniqueObjects.add(new BridgeBlock(110,110+i,this));
+    			uniqueObjects.add(new BridgeBlock(110,110+i,this)); // Pont de l arc
+    			
     	}
     	
     	uniqueDynamicObjects.add(new Agent(64,64,this));
+    	uniqueDynamicObjects.add(new TreeAgent(65,65,this));
+
+    	//uniqueDynamicObjects.add(new TreeAgent(65,65,this));
     	
+    	// populate with trees
+    	for (int i = 0 ; i < __dxCA ; i++)
+    	{
+    		for (int j = 0 ; j < __dyCA ; j++)
+    		{
+    			cellState = this.getCellValue(i, j);
+    			if (cellState == 1)
+    			{
+    				uniqueDynamicObjects.add(new GrassAgent(i,j,this)); // A ENLEVER // Creation de l'herbe
+    		
+    			}
+    		}
+    	}
     }
     
     protected void initCellularAutomata(int __dxCA, int __dyCA, double[][] landscape)
@@ -106,7 +126,8 @@ public class WorldOfTrees extends World {
 		case 1: // trees: green, fire, burnt
 		case 2:
 		case 3:
-			Tree.displayObjectAt(_myWorld,gl,cellState, x, y, height, offset, stepX, stepY, lenX, lenY, normalizeHeight);
+			//Tree.displayObjectAt(_myWorld,gl,cellState, x, y, height, offset, stepX, stepY, lenX, lenY, normalizeHeight);
+			
 		default:
 			// nothing to display at this location.
 		}
