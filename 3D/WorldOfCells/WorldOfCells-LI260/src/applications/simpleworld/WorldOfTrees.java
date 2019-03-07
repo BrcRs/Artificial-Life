@@ -78,8 +78,14 @@ public class WorldOfTrees extends World {
     			cellState = this.getCellValue(i, j);
     			if (cellState == 1)
     			{
-    				uniqueDynamicObjects.add(new GrassAgent(i,j,this)); // A ENLEVER // Creation de l'herbe
-    		
+    				if (Math.random() < 0.005)
+    				{
+    					uniqueDynamicObjects.add(new TreeAgent(i,j,this));
+    				}
+    				else
+    				{
+    				uniqueDynamicObjects.add(new GrassAgent(i,j,this)); // Creation de l'herbe
+    				}
     			}
     		}
     	}

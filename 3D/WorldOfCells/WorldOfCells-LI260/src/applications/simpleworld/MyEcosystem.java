@@ -5,6 +5,8 @@
 package applications.simpleworld;
 
 import graphics.Landscape;
+import worlds.World;
+import landscapegenerator.ca_landscape.LoadFromCALandscape;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,7 @@ public class MyEcosystem {
 		int i=(int)(Math.random()*landsList.size());
 		
 		//Landscape myLandscape = new Landscape(myWorld,landsList.get(i), 0.4, 0.5);
-		Landscape myLandscape = new Landscape(myWorld,"landscape_paris-200.png", 0.1, 0.1);
+		Landscape myLandscape = new Landscape(myWorld, LoadFromCALandscape.createLS(myWorld, 200, 200, 2), 0.1, 0.1);
 		
 		Landscape.run(myLandscape);
     }

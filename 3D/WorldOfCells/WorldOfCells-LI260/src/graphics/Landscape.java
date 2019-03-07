@@ -98,7 +98,7 @@ public class Landscape implements GLEventListener, KeyListener, MouseListener{
         int dxView;
         int dyView;
 
-        double[][] landscape; 
+        private double[][] landscape; 
 
         int lastFpsValue = 0;
         
@@ -128,11 +128,45 @@ public class Landscape implements GLEventListener, KeyListener, MouseListener{
         /**
          * 
          */
+        public double[][] getLandscape()
+        {
+        	
+        	return this.landscape;
+        }
+        
+        /**
+         * 
+         */
+        public void setLandscape(double[][] __LS)
+        {
+        	
+        	this.landscape = __LS;
+        }
+        
+        /**
+         * 
+         */
         public Landscape (World __myWorld, int __dx, int __dy, double scaling, double landscapeAltitudeRatio)
         {
     		_myWorld = __myWorld;
 
     		landscape = PerlinNoiseLandscapeGenerator.generatePerlinNoiseLandscape(__dx,__dy,scaling,landscapeAltitudeRatio,10); // 11
+    		landscape[10][10] = 0.5;
+    		landscape[9][10] = 0.4;
+    		landscape[10][9] = 0.4;
+    		landscape[11][10] = 0.4;
+    		landscape[10][11] = 0.4;
+    		//landscape = LandscapeToolbox.scaleAndCenter( landscape, 0.1, 0.7) ;
+    		
+    		
+    		initLandscape();
+        }
+        
+        public Landscape (World __myWorld, double[][] __landscape, double scaling, double landscapeAltitudeRatio)
+        {
+    		_myWorld = __myWorld;
+
+    		landscape = __landscape;
     		landscape[10][10] = 0.5;
     		landscape[9][10] = 0.4;
     		landscape[10][9] = 0.4;
