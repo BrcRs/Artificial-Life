@@ -19,6 +19,7 @@ public class RandomLandscapeGenerator {
 				landscape[i][j] = Math.random();
 			}
 		
+		
 		landscape = LandscapeToolbox.smoothLandscape(landscape);
 		
 		return landscape;

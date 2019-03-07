@@ -25,6 +25,7 @@ import objects.Monolith;
 
 import landscapegenerator.LoadFromFileLandscape;
 import landscapegenerator.PerlinNoiseLandscapeGenerator;
+import landscapegenerator.LandscapeToolbox;
 
 /*
  * TODO
@@ -75,9 +76,9 @@ public class Landscape implements GLEventListener, KeyListener, MouseListener{
 		 * 
 		 * 
 		 * Bonnes pratiques:
-		 * - gl.Begin() ... gl.glEnd(); : faire un minimum d'appel, idŽalement un par itŽration. (gain de 50% ˆ 100% ici)
-		 * - gl.glCullFace(GL.GL_FRONT); ... gl.glEnable(GL.GL_CULL_FACE); : si la scene le permet, rŽduit le nb de polyg a afficher.
-		 * - TRIANGLE SPLIT permet de rŽduire le nombre d'appels ˆ OpenGL (gl.begin et end)
+		 * - gl.Begin() ... gl.glEnd(); : faire un minimum d'appel, idï¿½alement un par itï¿½ration. (gain de 50% ï¿½ 100% ici)
+		 * - gl.glCullFace(GL.GL_FRONT); ... gl.glEnable(GL.GL_CULL_FACE); : si la scene le permet, rï¿½duit le nb de polyg a afficher.
+		 * - TRIANGLE SPLIT permet de rï¿½duire le nombre d'appels ï¿½ OpenGL (gl.begin et end)
 		 * - each call to gl.glColor3f costs a lot (speed is down by two if no call!)
 		 */
 	
@@ -132,6 +133,13 @@ public class Landscape implements GLEventListener, KeyListener, MouseListener{
     		_myWorld = __myWorld;
 
     		landscape = PerlinNoiseLandscapeGenerator.generatePerlinNoiseLandscape(__dx,__dy,scaling,landscapeAltitudeRatio,10); // 11
+    		landscape[10][10] = 0.5;
+    		landscape[9][10] = 0.4;
+    		landscape[10][9] = 0.4;
+    		landscape[11][10] = 0.4;
+    		landscape[10][11] = 0.4;
+    		//landscape = LandscapeToolbox.scaleAndCenter( landscape, 0.1, 0.7) ;
+    		
     		
     		initLandscape();
         }

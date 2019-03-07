@@ -10,7 +10,7 @@ public class PerlinNoiseLandscapeGenerator {
     {
     	double landscape[][] = new double[dxView][dyView];
 
-    	// A ECRIRE ! 
+    	// A ECRIRE !
     	// ...
     	for ( int x = 0 ; x < dxView ; x++ )
     		for ( int y = 0 ; y < dyView ; y++ )
