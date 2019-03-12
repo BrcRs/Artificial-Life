@@ -2,9 +2,8 @@
 // created by nicolas.bredeche(at)upmc.fr
 // date of creation: 2013-1-12
 
-package cellularautomata;
 
-import cellularautomata.LsCell;
+
 
 public class CellularAutomataLS extends CellularAutomata {
 

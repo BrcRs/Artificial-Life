@@ -1,5 +1,3 @@
-package cellularautomata;
-
 
 public class LsCell {
 	public int whiteness;
