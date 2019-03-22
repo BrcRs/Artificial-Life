@@ -1,4 +1,4 @@
-// ### WORLD OF CELLS ### 
+// ### WORLD OF CELLS ###
 // created by nicolas.bredeche(at)upmc.fr
 // date of creation: 2013-1-12
 
@@ -7,27 +7,33 @@ package worlds;
 import java.util.ArrayList;
 import javax.media.opengl.GL2;
 
+import applications.simpleworld.Agent;
+import applications.simpleworld.AgentList;
 import cellularautomata.*;
 
 import objects.*;
 
 public abstract class World {
-	
+
 	protected int iteration = 0;
 
 	protected ArrayList<UniqueObject> uniqueObjects = new ArrayList<UniqueObject>();
 	protected ArrayList<UniqueDynamicObject> uniqueDynamicObjects = new ArrayList<UniqueDynamicObject>();
-    
+    /**/
+    protected CellularAutomataAgents myAgents;
+     /**/
+
+
 	protected int dxCA;
 	protected int dyCA;
 
 	protected int indexCA;
 
 	//protected CellularAutomataInteger cellularAutomata; // TO BE DEFINED IN CHILDREN CLASSES
-    
+
 	protected CellularAutomataDouble cellsHeightValuesCA;
 	protected CellularAutomataDouble cellsHeightAmplitudeCA;
-	
+
 	public CellularAutomataColor cellsColorValues;
 
 	private double maxEverHeightValue = Double.NEGATIVE_INFINITY;
@@ -37,32 +43,32 @@ public abstract class World {
     {
     	// ... cf. init() for initialization
     }
-    
+
     public void init( int __dxCA, int __dyCA, double[][] landscape )
     {
     	dxCA = __dxCA;
     	dyCA = __dyCA;
-    	
+
     	iteration = 0;
 
     	this.cellsHeightValuesCA = new CellularAutomataDouble (__dxCA,__dyCA,false);
     	this.cellsHeightAmplitudeCA = new CellularAutomataDouble (__dxCA,__dyCA,false);
-    	
+
     	this.cellsColorValues = new CellularAutomataColor(__dxCA,__dyCA,false);
-    	
+
     	// init altitude and color related information
     	for ( int x = 0 ; x != dxCA ; x++ )
     		for ( int y = 0 ; y != dyCA ; y++ )
     		{
-    			// compute height values (and amplitude) from the landscape for this CA cell 
+    			// compute height values (and amplitude) from the landscape for this CA cell
     			double minHeightValue = Math.min(Math.min(landscape[x][y],landscape[x+1][y]),Math.min(landscape[x][y+1],landscape[x+1][y+1]));
-    			double maxHeightValue = Math.max(Math.max(landscape[x][y],landscape[x+1][y]),Math.max(landscape[x][y+1],landscape[x+1][y+1])); 
-    			
+    			double maxHeightValue = Math.max(Math.max(landscape[x][y],landscape[x+1][y]),Math.max(landscape[x][y+1],landscape[x+1][y+1]));
+
     			if ( this.maxEverHeightValue < maxHeightValue )
     				this.maxEverHeightValue = maxHeightValue;
     			if ( this.minEverHeightValue > minHeightValue )
     				this.minEverHeightValue = minHeightValue;
-    			
+
     			cellsHeightAmplitudeCA.setCellState(x,y,maxHeightValue-minHeightValue);
     			cellsHeightValuesCA.setCellState(x,y,(minHeightValue+maxHeightValue)/2.0);
 
@@ -81,75 +87,101 @@ public abstract class World {
     	        }
     	        */
     		}
-    	
+
     	initCellularAutomata(__dxCA,__dyCA,landscape);
 
     }
-    
-    
+
+
     public void step()
     {
+			//System.out.println("" + iteration);
+    		
+    	
+    	myAgents.stepinit();
     	stepCellularAutomata();
     	stepAgents();
+    	myAgents.stepfinalize();
     	iteration++;
     }
-    
+
     public int getIteration()
     {
     	return this.iteration;
     }
-    
+		public CellularAutomataAgents getAgents()
+		{
+			return this.myAgents;
+		}
+
+
     abstract protected void stepAgents();
-    
+
     // ----
 
     protected abstract void initCellularAutomata(int __dxCA, int __dyCA, double[][] landscape);
-    
+
     protected abstract void stepCellularAutomata();
-    
+
     // ---
-    
+
     abstract public int getCellValue(int x, int y); // used by the visualization code to call specific object display.
 
     abstract public void setCellValue(int x, int y, int state);
-    
-    // ---- 
-    
+
+    // ----
+
     public double getCellHeight(int x, int y) // used by the visualization code to set correct height values
     {
     	return cellsHeightValuesCA.getCellState(x%dxCA,y%dyCA);
     }
-    
-    // ---- 
-    
+
+    // ----
+
     public float[] getCellColorValue(int x, int y) // used to display cell color
     {
     	float[] cellColor = this.cellsColorValues.getCellState( x%this.dxCA , y%this.dyCA );
 
     	float[] color  = {cellColor[0],cellColor[1],cellColor[2],1.0f};
-        
+
         return color;
     }
 
 	abstract public void displayObjectAt(World _myWorld, GL2 gl, int cellState, int x,
 			int y, double height, float offset,
 			float stepX, float stepY, float lenX, float lenY,
-			float normalizeHeight); 
+			float normalizeHeight);
 
 	public void displayUniqueObjects(World _myWorld, GL2 gl, int offsetCA_x, int offsetCA_y, float offset,
-			float stepX, float stepY, float lenX, float lenY, float normalizeHeight) 
+			float stepX, float stepY, float lenX, float lenY, float normalizeHeight)
 	{
     	for ( int i = 0 ; i < uniqueObjects.size(); i++ )
     		uniqueObjects.get(i).displayUniqueObject(_myWorld,gl,offsetCA_x,offsetCA_y,offset,stepX,stepY,lenX,lenY,normalizeHeight);
     	for ( int i = 0 ; i < uniqueDynamicObjects.size(); i++ )
     		uniqueDynamicObjects.get(i).displayUniqueObject(_myWorld,gl,offsetCA_x,offsetCA_y,offset,stepX,stepY,lenX,lenY,normalizeHeight);
+    	/**/
+        for (int i = 0 ; i < _myWorld.myAgents.getCurrentBuffer().length ; i++)
+        {
+          for (int j = 0 ; j < _myWorld.myAgents.getCurrentBuffer()[i].length ; j++)
+          {
+            for ( Agent a : _myWorld.myAgents.getCurrentBuffer()[i][j])
+            {
+            	System.out.println("" + a.toString() + "Tableau [" + i + ", " + j + "]");
+              a.displayUniqueObject(_myWorld,gl,offsetCA_x,offsetCA_y,offset,stepX,stepY,lenX,lenY,normalizeHeight);
+            }
+
+          }
+        }
+        /**/
+
+
 	}
-    
+
 	public int getWidth() { return dxCA; }
 	public int getHeight() { return dxCA; }
 
 	public double getMaxEverHeight() { return this.maxEverHeightValue; }
 	public double getMinEverHeight() { return this.minEverHeightValue; }
-	
+
 
 }

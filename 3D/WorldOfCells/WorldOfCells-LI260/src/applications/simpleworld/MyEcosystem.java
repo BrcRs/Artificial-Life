@@ -6,7 +6,7 @@ package applications.simpleworld;
 
 import graphics.Landscape;
 import worlds.World;
-import landscapegenerator.ca_landscape.LoadFromCALandscape;
+//import landscapegenerator.ca_landscape.LoadFromCALandscape;
 
 import java.util.ArrayList;
 
