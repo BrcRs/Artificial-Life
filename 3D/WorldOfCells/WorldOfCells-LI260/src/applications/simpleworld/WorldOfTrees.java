@@ -5,6 +5,8 @@
 package applications.simpleworld;
 
 import cellularautomata.CellularAutomataAgents;
+import cellularautomata.CellularAutomataFluid;
+
 
 import javax.media.opengl.GL2;
 
@@ -25,6 +27,7 @@ public class WorldOfTrees extends World {
     	int cellState;
 
       myAgents = new CellularAutomataAgents(__dxCA, __dyCA, true);
+      myLava = new CellularAutomataFluid(this, __dxCA, __dyCA, true);
 
     	// add colors
 
@@ -79,11 +82,11 @@ public class WorldOfTrees extends World {
     	//uniqueDynamicObjects.add(new TreeAgent(65,65,this));
       // TEST A ENLEVER
     	myAgents.stepinit();
-      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
+      //myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
+      //myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
 
-      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
-      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
+      //myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      //myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
 
       //myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
 
@@ -110,6 +113,11 @@ public class WorldOfTrees extends World {
     			}
     		}
     	}
+    	
+    	// add some LAVA
+    	myLava.stepinit();
+    	myLava.setFluidLevel(40, 40, 40);
+    	myLava.stepfinalize();
     }
 
 

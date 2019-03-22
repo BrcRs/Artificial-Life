@@ -19,8 +19,10 @@ public abstract class World {
 
 	protected ArrayList<UniqueObject> uniqueObjects = new ArrayList<UniqueObject>();
 	protected ArrayList<UniqueDynamicObject> uniqueDynamicObjects = new ArrayList<UniqueDynamicObject>();
+
     /**/
     protected CellularAutomataAgents myAgents;
+    protected CellularAutomataFluid myLava;
      /**/
 
 
@@ -99,9 +101,13 @@ public abstract class World {
     		
     	
     	myAgents.stepinit();
+    	
     	stepCellularAutomata();
     	stepAgents();
+    	
     	myAgents.stepfinalize();
+    	myLava.step();
+    	
     	iteration++;
     }
 
