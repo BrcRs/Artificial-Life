@@ -16,6 +16,10 @@ public class Animal extends Agent implements Killable {
 	
 	protected Animal mate;
 	
+	protected double energy;
+	
+	protected double feedFromEnergyLevel;
+	
 	protected int sightRange;
 	
 	protected int behavior;
@@ -49,7 +53,9 @@ public class Animal extends Agent implements Killable {
 		age = 0;
 		mate = null;
 		sightRange = 5;
-		deathAge = 500;
+		deathAge = 1000;
+		energy = 500;
+		feedFromEnergyLevel = 300;
 
 	}
 

@@ -86,7 +86,7 @@ public class CellularAutomataFluid extends CellularAutomata {
 					//System.out.print("|" + Buffer0[x][y]);
 					if (Buffer0[x][y] <= 0)
 					{
-						/**
+						/**/
 						float color[] = new float[3];
     		        	color[0] = 0.2f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
     					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();

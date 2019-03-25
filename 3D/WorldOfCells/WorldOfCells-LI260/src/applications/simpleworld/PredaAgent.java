@@ -14,7 +14,6 @@ public class PredaAgent extends Animal implements Killable
 
 	public String nom;
 
-	private boolean hunger; // La faim
 
 	private int slowliness;
 
@@ -29,20 +28,20 @@ public class PredaAgent extends Animal implements Killable
 
 	public static final int RUT = 0;
 	public static final int HUNTING = 1;
+	public static final int NORMAL = 2;
 
 
 
 	public PredaAgent ( int __x , int __y , World __world, String nom )
 	{
 		super(__x, __y, __world);
-		hunger = true;
 		slowliness = 10;
-		sightRange = 20;
+		sightRange = 50;
 		currState = Animal.ALIVE;
 		behavior = HUNTING;
 		target = null;
 		mate = null;
-		deathAge = 300;
+		//deathAge = 300;
 		this.nom = nom;
 		this.id = cpt;
 		cpt++;
@@ -110,7 +109,7 @@ public class PredaAgent extends Animal implements Killable
 		return (PredaAgent)mate;
 	}
 
-	public void searchForPrey()
+	public void searchForPreyOld()
 	{
 		System.out.println("Je cherche une proie");
 		boolean sortie = false;
@@ -157,6 +156,115 @@ public class PredaAgent extends Animal implements Killable
 
 
 	}
+	
+	public void searchForPrey()
+	{
+		System.out.println("Je cherche une proie");
+		boolean sortie = false;
+
+		int myAgents_lenX = this.world.getAgents().getCurrentBuffer().length;
+		int myAgents_lenY = this.world.getAgents().getCurrentBuffer()[0].length;
+
+		AgentList currCase;
+
+
+		int u = 0;
+		int v = 0;
+		while (u < myAgents_lenX && !sortie)
+		{
+			currCase = this.world.getAgents().getCurrentBuffer()[(this.x + u + myAgents_lenX) % myAgents_lenX][(this.y + v + myAgents_lenY) % myAgents_lenY];
+			for (Agent a : currCase)
+			{
+				//System.out.println("Oh un autre agent !");
+				if (a instanceof ProieAgent )
+				{
+					System.out.println("Trouve !");
+					sortie = true;
+					this.target = (ProieAgent) a;
+					u = myAgents_lenX;
+					break;
+				}
+			}
+			
+
+			currCase = this.world.getAgents().getCurrentBuffer()[(this.x + u + myAgents_lenX) % myAgents_lenX][(this.y + myAgents_lenY) % myAgents_lenY];
+			for (Agent a : currCase)
+			{
+				//System.out.println("Oh un autre agent !");
+				if (a instanceof ProieAgent )
+				{
+					System.out.println("Trouve !");
+					sortie = true;
+					this.target = (ProieAgent) a;
+					u = myAgents_lenX;
+
+					break;
+				}
+			}
+			currCase = this.world.getAgents().getCurrentBuffer()[(this.x + myAgents_lenX) % myAgents_lenX][(this.y + v + myAgents_lenY) % myAgents_lenY];
+			for (Agent a : currCase)
+			{
+				//System.out.println("Oh un autre agent !");
+				if (a instanceof ProieAgent )
+				{
+					System.out.println("Trouve !");
+					sortie = true;
+					this.target = (ProieAgent) a;
+					u = myAgents_lenX;
+
+					break;
+				}
+			}
+			currCase = this.world.getAgents().getCurrentBuffer()[(this.x - u + myAgents_lenX) % myAgents_lenX][(this.y - v + myAgents_lenY) % myAgents_lenY];
+			for (Agent a : currCase)
+			{
+				//System.out.println("Oh un autre agent !");
+				if (a instanceof ProieAgent )
+				{
+					System.out.println("Trouve !");
+					sortie = true;
+					this.target = (ProieAgent) a;
+					u = myAgents_lenX;
+
+					break;
+				}
+			}
+			currCase = this.world.getAgents().getCurrentBuffer()[(this.x - u + myAgents_lenX) % myAgents_lenX][(this.y + myAgents_lenY) % myAgents_lenY];
+			for (Agent a : currCase)
+			{
+				//System.out.println("Oh un autre agent !");
+				if (a instanceof ProieAgent )
+				{
+					System.out.println("Trouve !");
+					sortie = true;
+					this.target = (ProieAgent) a;
+					u = myAgents_lenX;
+
+					break;
+				}
+			}
+			currCase = this.world.getAgents().getCurrentBuffer()[(this.x + myAgents_lenX) % myAgents_lenX][(this.y - v + myAgents_lenY) % myAgents_lenY];
+			for (Agent a : currCase)
+			{
+				//System.out.println("Oh un autre agent !");
+				if (a instanceof ProieAgent )
+				{
+					System.out.println("Trouve !");
+					sortie = true;
+					this.target = (ProieAgent) a;
+					u = myAgents_lenX;
+
+					break;
+				}
+			}
+		v++;
+		u++;
+		}
+
+
+
+	}
+
 
 
 
@@ -216,7 +324,7 @@ public class PredaAgent extends Animal implements Killable
 		{
 			System.out.println("Mating !!!!");
 			mate((PredaAgent)mate);
-			this.behavior = HUNTING;
+			this.behavior = NORMAL;
 			mate = null; // experimental
 
 			return;
@@ -282,6 +390,7 @@ public class PredaAgent extends Animal implements Killable
 		{
 			System.out.println("Meurtre !!!!");
 			kill(target);
+			energy += 200;
 			target = null;
 			return;
 		}
@@ -345,7 +454,7 @@ public class PredaAgent extends Animal implements Killable
 		{
 		case ALIVE :
 
-			if (health <= 0 || age >= deathAge)
+			if (health <= 0 || age >= deathAge || energy <= 0)
 			{
 				currState = Animal.DEAD;
 				return;
@@ -354,12 +463,25 @@ public class PredaAgent extends Animal implements Killable
 
 			switch (behavior)
 			{
-			case HUNTING :
-				/**/
+			
+			case NORMAL :
 				if (Math.random() < 0.005) // 0.0005
 				{
 					behavior = RUT;
 
+				}
+				if (energy < feedFromEnergyLevel)
+				{
+					this.behavior = HUNTING;
+				}
+				move();
+
+				break;
+			case HUNTING :
+				/**/
+				if (energy >= feedFromEnergyLevel)
+				{
+					this.behavior = NORMAL;
 				}
 
 				/**/
@@ -396,6 +518,9 @@ public class PredaAgent extends Animal implements Killable
 			break;
 		}
 		this.age++;
+		this.energy--;
+
+		
 		//world.getAgents().updateAgent(this, this.x, this.y);
 
 	}

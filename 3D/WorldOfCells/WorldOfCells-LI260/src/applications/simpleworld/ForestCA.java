@@ -90,10 +90,11 @@ public class ForestCA extends CellularAutomataInteger {
 	    			switch ( this.getCellState(i, j) )
 	    			{
 	    				case 0:
+	    					/**/
 	    		        	color[0] = 0.2f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
 	    					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
 	    					color[2] =  0.1f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
-
+	    					/**/
 	    					break;
 	    				case 1:
 	    					/*
@@ -104,6 +105,7 @@ public class ForestCA extends CellularAutomataInteger {
 	    		        	color[0] = 0.f + 0.1f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
 	    					color[1] = 0.1f + 0.5f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
 	    					color[2] =  0.f + 0.1f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					/**/
 	    					break;
 	    				case 2: // burning tree
 	    					/**/

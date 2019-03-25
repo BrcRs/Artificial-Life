@@ -29,7 +29,7 @@ public class ProieAgent extends Animal implements Killable
 		super(__x, __y, __world);
 		//satiete = false;
 		slowliness = 15;
-		deathAge = 600;
+		deathAge = 500;
 		sightRange = 20;
 		
 		currState = ALIVE;
