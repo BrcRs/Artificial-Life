@@ -42,10 +42,16 @@ public class WorldOfTrees extends World {
 		        if ( height >= 0 )
 		        {
 		        	// snowy mountains
-		        	/**/
-		        	color[0] = height / (float)this.getMaxEverHeight();
-					color[1] = height / (float)this.getMaxEverHeight();
-					color[2] = height / (float)this.getMaxEverHeight();
+		        	/**
+		        	color[0] = 0.2f + 0.1f * height / (float)this.getMaxEverHeight();
+					color[1] = 0.1f + 0.4f * height / (float)this.getMaxEverHeight();
+					color[2] = 0.1f + 0.1f * height / (float)this.getMaxEverHeight();
+					/**/
+					
+					/**/
+		        	color[0] = 0.2f + 0.4f * height / (float)this.getMaxEverHeight();
+					color[1] = 0.1f + 0.4f * height / (float)this.getMaxEverHeight();
+					color[2] = 0.1f + 0.4f * height / (float)this.getMaxEverHeight();
 					/**/
 
 					// green mountains
@@ -82,13 +88,13 @@ public class WorldOfTrees extends World {
     	//uniqueDynamicObjects.add(new TreeAgent(65,65,this));
       // TEST A ENLEVER
     	myAgents.stepinit();
-      //myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-      //myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
+      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
+      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
 
-      //myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
-      //myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
 
-      //myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
+      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
 
       myAgents.stepfinalize();
 

@@ -51,9 +51,20 @@ public class GrassAgent extends Agent implements Killable
     	{
     		cellState = 3;
     	}
+    	/**
+    	else
+    	{
+    	if (world.getmyLava().isLava(x, y))
+    	{
+    		myWorld.setCellValue(x, y, 2);
+    		cellState = 2;
+    	}
+    	}
+    	/**/
 		switch ( cellState )
         {
         	case 1:
+        		/* V ORIGINAL V *
         		gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
             	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/2.f, altitude + 4.f );//2
         		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//1
@@ -67,8 +78,105 @@ public class GrassAgent extends Agent implements Killable
 
                 gl.glVertex3f( offset+x2*stepX+lenY/2.f, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
                 gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//7
+                
+                
+                
+                gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f - 2, offset+y2*stepY+lenY/2.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f - 2, offset+y2*stepY-lenY/2.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/2.f - 2, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/2.f- 2, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX- 2, offset+y2*stepY, altitude );//7
+                /* ^ ORIGINAL ^ */
+        		gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/3.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f, offset+y2*stepY-lenY/3.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//7
+                
+                
+                
+                gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f - 2, offset+y2*stepY+lenY/3.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f - 2, offset+y2*stepY-lenY/3.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f - 2, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f- 2, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX- 2, offset+y2*stepY, altitude );//7
+        		
+        		
+                
+                
+                gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f+ 2, offset+y2*stepY+lenY/3.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f+ 2, offset+y2*stepY-lenY/3.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f+ 2, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f+ 2, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//7
+
+
+                
+                gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/3.f-2, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f, offset+y2*stepY-lenY/3.f-2, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/16.f-2, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/16.f-2, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//7
+
+                
+                
+                gl.glColor3f(0.2f,0.5f-(float)(0.2*Math.random()),0.2f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/3.f+2, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f, offset+y2*stepY-lenY/3.f+2, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/16.f+2, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/16.f+2, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//7
+
         		break;
         	case 2: // Burning
+        		/**
         		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
             	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/2.f, altitude + 4.f );//2
         		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//1
@@ -82,6 +190,90 @@ public class GrassAgent extends Agent implements Killable
 
                 gl.glVertex3f( offset+x2*stepX+lenY/2.f, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
                 gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//7
+                /**/
+                
+                
+                
+                
+                
+        		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/3.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f, offset+y2*stepY-lenY/3.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude );//7
+                
+                
+                
+        		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f - 2, offset+y2*stepY+lenY/3.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f - 2, offset+y2*stepY-lenY/3.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f - 2, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f- 2, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX- 2, offset+y2*stepY, altitude );//7
+        		
+        		
+                
+                
+        		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f+ 2, offset+y2*stepY+lenY/3.f, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f+ 2, offset+y2*stepY-lenY/3.f, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f+ 2, offset+y2*stepY+lenY/16.f, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f+ 2, offset+y2*stepY-lenY/16.f, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude );//7
+
+
+                
+        		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/3.f-2, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f, offset+y2*stepY-lenY/3.f-2, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/16.f-2, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/16.f-2, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude );//7
+
+                
+                
+        		gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
+            	gl.glVertex3f( offset+x2*stepX-lenY/16.f, offset+y2*stepY+lenY/3.f+2, altitude + 4.f );//2
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//1
+
+                gl.glVertex3f( offset+x2*stepX+lenY/16.f, offset+y2*stepY-lenY/3.f+2, altitude + 4.f );//4
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//3
+
+
+                gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/16.f+2, altitude + 4.f );//6
+        		gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//5
+
+                gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/16.f+2, altitude + 4.f );//8
+                gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude );//7
         		break;
         	case 3: // Burnt
         		gl.glColor3f(0.f+(float)(0.2*Math.random()),0.f+(float)(0.2*Math.random()),0.f+(float)(0.2*Math.random()));

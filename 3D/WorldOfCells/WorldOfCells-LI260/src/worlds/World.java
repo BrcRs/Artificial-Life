@@ -45,6 +45,11 @@ public abstract class World {
     {
     	// ... cf. init() for initialization
     }
+    
+    public CellularAutomataFluid getmyLava()
+    {
+    	return myLava;
+    }
 
     public void init( int __dxCA, int __dyCA, double[][] landscape )
     {

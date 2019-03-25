@@ -90,26 +90,44 @@ public class ForestCA extends CellularAutomataInteger {
 	    			switch ( this.getCellState(i, j) )
 	    			{
 	    				case 0:
+	    		        	color[0] = 0.2f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					color[2] =  0.1f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+
 	    					break;
 	    				case 1:
+	    					/*
 	    					color[0] = 0.f;
 	    					color[1] = 0.3f;
 	    					color[2] = 0.f;
+	    					/**/
+	    		        	color[0] = 0.f + 0.1f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					color[1] = 0.1f + 0.5f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					color[2] =  0.f + 0.1f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
 	    					break;
 	    				case 2: // burning tree
+	    					/**/
 	    					color[0] = 1.f;
 	    					color[1] = 0.f;
 	    					color[2] = 0.f;
+	    					/**/
 	    					break;
 	    				case 3: // burnt tree
+	    					/*
 	    					color[0] = 0.f;
 	    					color[1] = 0.f;
 	    					color[2] = 0.f;
+	    					/**/
+	    		        	color[0] = 0.2f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
+	    					color[2] =  0.1f + 0.4f * (float) world.getCellHeight(i, j) / (float)world.getMaxEverHeight();
 	    					break;
 	    				default:
+	    					/**/
 	    					color[0] = 0.5f;
 	    					color[1] = 0.5f;
 	    					color[2] = 0.5f;
+	    					/**/
 	    					System.out.print("cannot interpret CA state: " + this.getCellState(i, j));
 	    					System.out.println(" (at: " + i + "," + j + " -- height: " + this.world.getCellHeight(i,j) + " )");
 	    			}	   
