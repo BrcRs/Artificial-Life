@@ -13,11 +13,15 @@ public class ProieAgent extends Animal implements Killable
 {
 
 	
-	private int slowliness;
+
 	
 
 	public static final int RUT = 0;
 	public static final int NORMAL = 1;
+	public static final int FLIGHT = 2;
+	
+	
+	private Agent threat;
 
 
 
@@ -29,9 +33,9 @@ public class ProieAgent extends Animal implements Killable
 		super(__x, __y, __world);
 		//satiete = false;
 		slowliness = 15;
-		deathAge = 500;
+		deathAge = 500; // 500
 		sightRange = 20;
-		
+		threat = null;
 		currState = ALIVE;
 	}
 
@@ -75,61 +79,24 @@ private void move()
 
 public void searchForMate()
 {
-	System.out.println("Je cherche un(e) partenaire");
-	boolean sortie = false;
-
-	int myAgents_lenX = this.world.getAgents().getCurrentBuffer().length;
-	int myAgents_lenY = this.world.getAgents().getCurrentBuffer()[0].length;
-
-	AgentList currCase;
-
-
-	int u = -sightRange;
-	int v = -sightRange;
-	System.out.println("Je suis en [" + x + ", " + y + "]");
-	while ( u <= sightRange&& !sortie) 
+	ProieAgent cible = (ProieAgent) searchForAgentOfType(ProieAgent.class);
+	if (cible != this)
 	{
-		v = -sightRange;
-		while ( v <= sightRange && !sortie) 
-		{
-			if (v == 0 && u == 0)
-			{
-				v++;
-				continue;
-			}
-			//System.out.println("scanning : [" + ((this.x + u + myAgents_lenX) % myAgents_lenX) + ", " + ((this.y + v + myAgents_lenY) % myAgents_lenY) + "]");
-			currCase = this.world.getAgents().getCurrentBuffer()[(this.x + u + myAgents_lenX) % myAgents_lenX][(this.y + v + myAgents_lenY) % myAgents_lenY];
-
-			for (Agent a : currCase)
-			{
-				System.out.println("Oh un autre agent !");
-				if (a instanceof ProieAgent )
-				{
-					System.out.println("Trouve !");
-					sortie = true;
-					this.mate = (ProieAgent) a;
-					break;
-				}
-			}
-			v++;
-		}
-		//System.out.println("" + u);
-		u++;
+		this.mate = cible;
 	}
-
 }
 
 
 public void goToMate()
 {
-	System.out.println("---- goToMate ----");
-	System.out.println("Moi : [" + x + ", " + y + "]");
+	//System.out.println("---- goToMate ----");
+	//System.out.println("Moi : [" + x + ", " + y + "]");
 
-	System.out.println("Cible : [" + mate.getCoordinate()[0] + ", " + mate.getCoordinate()[1] + "]");
+	//System.out.println("Cible : [" + mate.getCoordinate()[0] + ", " + mate.getCoordinate()[1] + "]");
 
 	if (x == mate.getCoordinate()[0] && y == mate.getCoordinate()[1])
 	{
-		System.out.println("Mating !!!!");
+		//System.out.println("Mating !!!!");
 		mate((ProieAgent)mate);
 		this.behavior = NORMAL;
 		mate = null; // experimental
@@ -145,8 +112,8 @@ public void goToMate()
 
 			int diffX = x - mate.getCoordinate()[0];
 			int diffY = y - mate.getCoordinate()[1];
-			System.out.println("diffX = " + diffX);
-			System.out.println("diffY = " + diffY);
+			//System.out.println("diffX = " + diffX);
+			//System.out.println("diffY = " + diffY);
 
 			int newX = this.x;
 			int newY = this.y;
@@ -194,6 +161,72 @@ public void mate(ProieAgent pa)
 
 }
 
+public void setThreat(Agent threat)
+{
+	this.threat = threat;
+}
+public Agent getThreat()
+{
+	return this.threat;
+}
+
+public void onTheAlert()
+{
+	
+	
+}
+
+public void escapeFrom(Agent ag)
+{
+
+		if (age % slowliness == 0)
+		{
+
+
+
+			int diffX = x - ag.getCoordinate()[0];
+			int diffY = y - ag.getCoordinate()[1];
+			//System.out.println("diffX = " + diffX);
+			//System.out.println("diffY = " + diffY);
+
+			int newX = this.x;
+			int newY = this.y;
+
+			int e = 1; // e : sign
+
+
+
+				if (Math.abs(diffX) > world.getWidth()/2)
+				{
+					e = -1;
+
+				}
+				else
+				{
+					e = 1;
+				}
+				newX = ( newX + e * Integer.signum(diffX) +  this.world.getWidth() ) % this.world.getWidth() ;
+
+
+				if (Math.abs(diffY) > world.getHeight()/2)
+				{
+					e = -1;
+				}
+				else
+				{
+					e = 1;
+				}
+				newY = ( newY + e * Integer.signum(diffY) +  this.world.getHeight() ) % this.world.getHeight() ;
+			System.out.println(this.toString() + " fuit " + ag.toString() );
+			System.out.println("Nouvelle position : " + newX + ", " + newY);
+
+			world.getAgents().updateAgent(this, newX, newY);
+		}
+	
+
+	
+}
+
 
 /* public void step() */
 public void step()
@@ -209,17 +242,35 @@ public void step()
 			return;
 		}
 		
-		
+		if (threat != null)
+		{
+			this.behavior = FLIGHT;
+		}
+
 
 		switch (behavior)
 		{
 		case NORMAL :
-			if (Math.random() < 0.0001) // 0.0005
+			if (Math.random() < 0.00005) // 0.0005
 			{
 				behavior = RUT;
 
 			}
+
 			move();
+			break;
+			
+		case FLIGHT :
+			if (threat == null)
+			{
+				this.behavior = NORMAL;
+			}
+			else
+			{
+				escapeFrom(threat);
+				threat = null;
+				
+			}
 			break;
 		case RUT :
 
@@ -240,6 +291,11 @@ public void step()
 	this.age++;
 	//world.getAgents().updateAgent(this, this.x, this.y);
 
+}
+@Override
+public String toString()
+{
+	return "ProieAgent " +  ", " + "coord [" + x + ", " + y + "]";
 }
 
 

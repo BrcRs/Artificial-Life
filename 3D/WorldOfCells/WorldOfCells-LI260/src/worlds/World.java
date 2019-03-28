@@ -103,7 +103,13 @@ public abstract class World {
     public void step()
     {
 			//System.out.println("" + iteration);
-    		
+    	/* DEBUG ONLY *
+    	try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) 
+		{
+				}
+    	/*  */
     	
     	myAgents.stepinit();
     	
@@ -111,6 +117,11 @@ public abstract class World {
     	stepAgents();
     	
     	myAgents.stepfinalize();
+    	
+    	// add some LAVA
+    	myLava.stepinit();
+    	myLava.setFluidLevel(40, 40, 8);
+    	myLava.stepfinalize();
     	myLava.step();
     	
     	iteration++;
@@ -177,7 +188,7 @@ public abstract class World {
           {
             for ( Agent a : _myWorld.myAgents.getCurrentBuffer()[i][j])
             {
-            	System.out.println("" + a.toString() + "Tableau [" + i + ", " + j + "]");
+            	//System.out.println("" + a.toString() + "Tableau [" + i + ", " + j + "]");
               a.displayUniqueObject(_myWorld,gl,offsetCA_x,offsetCA_y,offset,stepX,stepY,lenX,lenY,normalizeHeight);
             }
 

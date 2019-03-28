@@ -38,11 +38,11 @@ public class CellularAutomataAgents extends CellularAutomata {
 				
 				Buffer1[i][j].add(a);
 				Buffer1[a.getCoordinate()[0]][a.getCoordinate()[1]].remove(a);
-				System.out.println("Nouveau Agent sur buffer 1 en [" + i + ", " + j + "]!");
+				//System.out.println("Nouveau Agent sur buffer 1 en [" + i + ", " + j + "]!");
 				
-				System.out.println("On retire l'agent Agent sur buffer 1 en [" + a.getCoordinate()[0] + ", " + a.getCoordinate()[1] + "]!");
+				//System.out.println("On retire l'agent Agent sur buffer 1 en [" + a.getCoordinate()[0] + ", " + a.getCoordinate()[1] + "]!");
 				
-				//System.out.println(this.world.getAgents()[(this.x + dx + myAgents_lenX) % myAgents_lenX][(this.y + dy + myAgents_lenY) % myAgents_lenY].contains(this));
+				////System.out.println(this.world.getAgents()[(this.x + dx + myAgents_lenX) % myAgents_lenX][(this.y + dy + myAgents_lenY) % myAgents_lenY].contains(this));
 				
 				a.setCoordinate(i, j);
 
@@ -57,10 +57,10 @@ public class CellularAutomataAgents extends CellularAutomata {
 		// Buffer0 is new buffer
 		
 		Buffer1[i][j].add(a);
-		System.out.println("Nouveau Agent sur buffer 1 en [" + i + ", " + j + "]!");
+		//System.out.println("Nouveau Agent sur buffer 1 en [" + i + ", " + j + "]!");
 		
 		
-		//System.out.println(this.world.getAgents()[(this.x + dx + myAgents_lenX) % myAgents_lenX][(this.y + dy + myAgents_lenY) % myAgents_lenY].contains(this));
+		////System.out.println(this.world.getAgents()[(this.x + dx + myAgents_lenX) % myAgents_lenX][(this.y + dy + myAgents_lenY) % myAgents_lenY].contains(this));
 		
 		a.setCoordinate(i, j);
 
@@ -159,7 +159,7 @@ public class CellularAutomataAgents extends CellularAutomata {
     			Buffer1[x][y] = (AgentList) Buffer0[x][y].clone();
  
 	    	}
-		System.out.println("buffer1 devient buffer0 !");
+		//System.out.println("buffer1 devient buffer0 !");
 
 			
 
@@ -179,14 +179,14 @@ public class CellularAutomataAgents extends CellularAutomata {
 	    				/**/
 	    				int statet = ani.getState();
 	    				/**/
-	    				System.out.println(ani.toString());
+	    				//System.out.println(ani.toString());
 	    				if (statet == Animal.ALIVE)
 	    				{
 	    					
 	    				}
 	    				if (statet == Animal.DEAD)
 	    				{
-	    					System.out.println("On retire un mort");
+	    					//System.out.println("On retire un mort");
 	    					Buffer1[x][y].remove(ani);
 	    				}
 		    			/**/
@@ -197,7 +197,7 @@ public class CellularAutomataAgents extends CellularAutomata {
     			Buffer0[x][y] = (AgentList) Buffer1[x][y].clone();
  
 	    	}
-		System.out.println("buffer0 devient buffer1 !");
+		//System.out.println("buffer0 devient buffer1 !");
 		
 		
 
@@ -216,7 +216,7 @@ public class CellularAutomataAgents extends CellularAutomata {
     			Buffer1[x][y].clear();
 	    	}
 			
-			System.out.println("buffer0 devient buffer1 !");
+			//System.out.println("buffer0 devient buffer1 !");
 
 		}
 		else
@@ -228,13 +228,13 @@ public class CellularAutomataAgents extends CellularAutomata {
     			Buffer0[x][y].clear();
 
 	    	}
-			System.out.println("buffer1 devient buffer0 !");
+			//System.out.println("buffer1 devient buffer0 !");
 
 
 		}
 		/**/
 		//activeIndex = ( activeIndex+1 ) % 2;
-		System.out.println("Buffer courant : Buffer" + activeIndex);
+		//System.out.println("Buffer courant : Buffer" + activeIndex);
 
 	}
 

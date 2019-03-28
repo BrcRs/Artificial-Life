@@ -79,61 +79,63 @@ public class CellularAutomataFluid extends CellularAutomata {
 
 
 
-			for ( int x = 0 ; x != _dx ; x++ )
+		for ( int x = 0 ; x != _dx ; x++ )
+		{
+			for ( int y = 0 ; y != _dy ; y++ )
 			{
-				for ( int y = 0 ; y != _dy ; y++ )
+				////System.out.print("|" + Buffer0[x][y]);
+				if (Buffer0[x][y] <= 0)
 				{
-					//System.out.print("|" + Buffer0[x][y]);
-					if (Buffer0[x][y] <= 0)
-					{
-						/**/
-						float color[] = new float[3];
-    		        	color[0] = 0.2f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
-    					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
-    					color[2] =  0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
-    					
-    					this.world.cellsColorValues.setCellState(x, y, color);
-    					/**/
-						continue;
-					}
-					System.out.print(" " + Buffer0[x][y]);
-					if (world.getIteration() % 100 == 0)
-					{
-					for (int i = -1 ; i <= 1 ; i++)
-					{
-						for (int j = -1 ; j <= 1 ; j++)
+					/**/
+					float color[] = new float[3];
+					color[0] = 0.2f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
+					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
+					color[2] =  0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
+
+					this.world.cellsColorValues.setCellState(x, y, color);
+					/**/
+					continue;
+				}
+				//System.out.print(" " + Buffer0[x][y]);
+				if (world.getIteration() % 100 == 0 && Buffer0[x][y] > 1)
+				{
+
+						for (int i = -1 ; i <= 1 ; i++)
 						{
+							for (int j = -1 ; j <= 1 ; j++)
+							{
+								if (Buffer1[x][y] <= 1)
+								{
+									break;
+								}
+								if (i == 0 && j == 0)
+								{
+									continue;
+								}
+								if (world.getCellHeight((x + i + _dx) % _dx, (y + j + _dy) % _dy)/* + Buffer0[(x + i + _dx) % _dx][(y + j + _dy) % _dy] */<= world.getCellHeight(x, y)/* + Buffer0[x][y]*/)
+								{
+									Buffer1[x][y] -= 1;
+									Buffer1[(x + i + _dx) % _dx][(y + j + _dy) % _dy] += 1;
+								}
+							}
 							if (Buffer1[x][y] <= 0)
 							{
 								break;
 							}
-							if (i == 0 && j == 0)
-							{
-								continue;
-							}
-							if (world.getCellHeight((x + i + _dx) % _dx, (y + j + _dy) % _dy)/* + Buffer0[(x + i + _dx) % _dx][(y + j + _dy) % _dy] */<= world.getCellHeight(x, y)/* + Buffer0[x][y]*/)
-							{
-								Buffer1[x][y] -= 1;
-								Buffer1[(x + i + _dx) % _dx][(y + j + _dy) % _dy] += 1;
-							}
 						}
-						if (Buffer1[x][y] <= 0)
-						{
-							break;
-						}
-					}
-					}
-					float color[] = new float[3];
-					color[0] = 0.8f-(float)(0.2*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
-					color[1] = 0.2f-(float)(0.3*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
-					color[2] = 0.1f + 0.1f;
-
-					this.world.cellsColorValues.setCellState(x, y, color);
-
+					
 				}
-				//System.out.print("\n");
+				float color[] = new float[3];
+				color[0] = 0.8f-(float)(0.2*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
+				color[1] = 0.2f-(float)(0.3*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
+				color[2] = 0.1f + 0.1f;
+
+				this.world.cellsColorValues.setCellState(x, y, color);
+
 			}
-		
+			////System.out.print("\n");
+		}
+
 
 		stepfinalize();
 	}
@@ -145,12 +147,12 @@ public class CellularAutomataFluid extends CellularAutomata {
 				Buffer1[x][y] = Buffer0[x][y];
 
 			}
-		//System.out.println("buffer1 devient buffer0 !");
+		////System.out.println("buffer1 devient buffer0 !");
 
 
 
 	}
-	
+
 	public boolean isLava(int x, int y)
 	{
 		return Buffer0[x][y] > 0;
@@ -166,7 +168,7 @@ public class CellularAutomataFluid extends CellularAutomata {
 				Buffer0[x][y] = Buffer1[x][y];
 
 			}
-		//System.out.println("buffer0 devient buffer1 !");
+		////System.out.println("buffer0 devient buffer1 !");
 
 
 
@@ -185,7 +187,7 @@ public class CellularAutomataFluid extends CellularAutomata {
 
 				}
 
-			System.out.println("buffer0 devient buffer1 !");
+			//System.out.println("buffer0 devient buffer1 !");
 
 		}
 		else
@@ -197,13 +199,13 @@ public class CellularAutomataFluid extends CellularAutomata {
 
 
 				}
-			//System.out.println("buffer1 devient buffer0 !");
+			////System.out.println("buffer1 devient buffer0 !");
 
 
 		}
 		/**/
 		//activeIndex = ( activeIndex+1 ) % 2;
-		System.out.println("Buffer courant : Buffer" + activeIndex);
+		//System.out.println("Buffer courant : Buffer" + activeIndex);
 
 	}
 

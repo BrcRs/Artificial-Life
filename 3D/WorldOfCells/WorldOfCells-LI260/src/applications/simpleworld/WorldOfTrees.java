@@ -130,8 +130,26 @@ public class WorldOfTrees extends World {
     	
     	// add some LAVA
     	myLava.stepinit();
-    	myLava.setFluidLevel(40, 40, 40);
+    	myLava.setFluidLevel(50, 50, 8);
+    	myLava.setFluidLevel(51, 50, 8);
+    	myLava.setFluidLevel(50, 51, 8);
+    	myLava.setFluidLevel(49, 50, 8);
+    	myLava.setFluidLevel(50, 49, 8);
+    	myLava.setFluidLevel(49, 49, 8);
+    	myLava.setFluidLevel(51, 51, 8);
+    	myLava.setFluidLevel(49, 51, 8);
+    	myLava.setFluidLevel(51, 49, 8);
+    	myLava.setFluidLevel(48, 48, 8);
+    	myLava.setFluidLevel(47, 47, 8);
+    	myLava.setFluidLevel(46, 46, 8);
+    	myLava.setFluidLevel(45, 45, 8);
+    	myLava.setFluidLevel(44, 44, 8);
+    	myLava.setFluidLevel(43, 43, 8);
+    	myLava.setFluidLevel(42, 42, 8);
+    	myLava.setFluidLevel(41, 41, 8);
+    	
     	myLava.stepfinalize();
+
     }
 
 
