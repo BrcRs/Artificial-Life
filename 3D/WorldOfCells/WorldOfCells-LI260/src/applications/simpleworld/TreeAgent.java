@@ -9,20 +9,120 @@ import objects.UniqueDynamicObject;
 
 import worlds.World;
 
-public class TreeAgent extends Agent implements Killable
+public class TreeAgent extends Plant implements Killable
 {
 	
-	int health;
 	public TreeAgent ( int __x , int __y , World __world )
 	{
 		super(__x, __y, __world);
-		health = 4048;
+		health = 400;
 	}
 	
 	public void step()
 	{
-	
+		if (health <= 0)
+		{
+			this.currState = DEAD;
+		}
+		switch (currState)
+		{
+		case ALIVE :
+			if ( Math.random() < 0.00000 || world.getmyLava().isLava(x, y)) // spontaneously take fire ? // 0.000005
+			{
+				this.currState = BURNING;
+				return;
+			}
+			
+
+			boolean isPlantHere = false;
+			//boolean sortie = false;
+			for ( int i = -1 ; i <= 1 ; i++ )
+			{
+				for ( int j = -1 ; j <= 1 ; j++ )
+				{
+					isPlantHere = false;
+					for (Agent a : world.getAgents().getCurrentBuffer()[(x + i + world.getWidth())%(world.getWidth())][(y + j + world.getHeight())%(world.getHeight())])
+					{
+						if (a instanceof Plant)
+						{
+							isPlantHere = true;
+							//System.out.println(a.toString());
+							if (((Plant) a).getState() == BURNING)
+							{
+								if (Math.random() < 0.0025)
+								{
+									System.out.println(this.toString() + "brule a cause de" + a.toString());
+									this.currState = BURNING;
+									break;
+								}
+							}
+
+
+						}
+						
+
+					}
+					if (isPlantHere == false && Math.random() < 0.00015)
+					{
+						// Ajouter une herbe
+						this.world.getAgents().updateAgentInitially(new GrassAgent((x + i + world.getWidth())%(world.getWidth()), (y + j + world.getHeight())%(world.getHeight()),this.world)
+								,(x + i + world.getWidth())%(world.getWidth())
+								,(y + j + world.getHeight())%(world.getHeight()));
+					}
+
+
+				}
+
+
+			}
+			break; // case ALIVE
+
+		case BURNING :
+			/**/
+
+			/**/
+			for ( int i = -1 ; i <= 1 ; i++ )
+			{
+				for ( int j = -1 ; j <= 1 ; j++ )
+				{
+					isPlantHere = false;
+					for (Agent a : world.getAgents().getCurrentBuffer()[(x + i + world.getWidth())%(world.getWidth())][(y + j + world.getHeight())%(world.getHeight())])
+					{
+						if (a instanceof Animal)
+						{
+							// Mettre l'animal en feu
+							((Animal) a).setState(BURNING);
+						}
+						
+
+					}
+
+				}
+
+
+			}
+	/**/
+			
+			health--;
+			if (health <= 0)
+			{
+				health = 1;
+				currState = BURNT;	
+			}
+			break;
+
+		case BURNT :
+			/**/
+			if (Math.random() < 0.001)
+			{
+				currState = DEAD;
+			}
+			/**/
+			break;
+
+		} // switch (currState)
 	}
+
 	public int die()
 	{
 		health = 0;
@@ -51,9 +151,9 @@ public class TreeAgent extends Agent implements Killable
     	{
     		cellState = 3;
     	}
-		switch ( cellState )
+		switch ( currState )
         {
-        	case 1:
+        	case ALIVE:
         		
         		
         		gl.glColor3f(0.4f,0.3f-(float)(0.2*Math.random()),0.0f);
@@ -113,7 +213,7 @@ public class TreeAgent extends Agent implements Killable
                 
                 
         		break;
-        	case 2: // Burning
+        	case BURNING: // Burning
         		
         		gl.glColor3f(0.4f,0.3f-(float)(0.2*Math.random()),0.0f);
         		/* Tronc de l'arbre */
@@ -143,7 +243,7 @@ public class TreeAgent extends Agent implements Killable
                 gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY-lenY, height*normalizeHeight + 8.f);
                 
                 /* Feuillage de l'arbre */
-        		gl.glColor3f(0.5f-(float)(0.2*Math.random()),0.1f-(float)(0.1*Math.random()),0.f);
+    			gl.glColor3f(1.f-(float)(0.2*Math.random()),0.f,0.f);
                 gl.glVertex3f( offset+x2*stepX-lenX*4.f, offset+y2*stepY-lenY*4.f, height*normalizeHeight + 8.f);
                 gl.glVertex3f( offset+x2*stepX-lenX*4.f, offset+y2*stepY-lenY*4.f, height*normalizeHeight + 16.f);
                 gl.glVertex3f( offset+x2*stepX+lenX*4.f, offset+y2*stepY-lenY*4.f, height*normalizeHeight + 16.f);
@@ -171,7 +271,7 @@ public class TreeAgent extends Agent implements Killable
         		
         		
         		break;
-        	case 3: // Burnt
+        	case BURNT: // Burnt
         		/**/
         		gl.glColor3f(0.f+(float)(0.2*Math.random()),0.f,0.0f);
         		/* Tronc de l'arbre */

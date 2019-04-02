@@ -45,9 +45,9 @@ public class PredaAgent extends Animal implements Killable
 		startHUNTING = false;
 		target = null;
 		mate = null;
-		deathAge = 2000; //2000
-		energy = 800;
-		feedFromEnergyLevel = 400;
+		deathAge = 1000; //
+		energy = 400;
+		feedFromEnergyLevel = 600; // 400 // 600
 		this.nom = nom;
 		this.id = cpt;
 		cpt++;
@@ -174,8 +174,14 @@ public class PredaAgent extends Animal implements Killable
 					else
 						newY = ( newY - 1 +  this.world.getHeight() ) % this.world.getHeight() ;
 		}
-
-
+		
+		/*
+		if (this.world.getCellHeight(newX, newY) <= 0)
+		{
+			this.move();
+			return;
+		}
+		/**/
 		world.getAgents().updateAgent(this, newX, newY);
 
 		/**/
@@ -250,7 +256,13 @@ public class PredaAgent extends Animal implements Killable
 					}
 					newY = ( newY - e * diffY/Math.abs(diffY) +  this.world.getHeight() ) % this.world.getHeight() ;
 				}
-
+				/*
+				if (this.world.getCellHeight(newX, newY) <= 0)
+				{
+					this.move();
+					return;
+				}
+				/**/
 				world.getAgents().updateAgent(this, newX, newY);
 			}
 		}
@@ -260,11 +272,14 @@ public class PredaAgent extends Animal implements Killable
 	{
 
 
-		if (x == target.getCoordinate()[0] && y == target.getCoordinate()[1])
+		if (Math.max(x, target.getCoordinate()[0]) - Math.min(x, target.getCoordinate()[0]) <= 1 && Math.max(y, target.getCoordinate()[1]) - Math.min(y, target.getCoordinate()[1]) <= 1)
+			//if (x == target.getCoordinate()[0] && y == target.getCoordinate()[1])
+
 		{
 			//System.out.println("Meurtre !!!!");
+			energy += 100 * target.energy;
 			kill(target);
-			energy += 200;
+			
 			target = null;
 			return;
 		}
@@ -312,7 +327,13 @@ public class PredaAgent extends Animal implements Killable
 					}
 					newY = ( newY - e * diffY/Math.abs(diffY) +  this.world.getHeight() ) % this.world.getHeight() ;
 				}
-
+				/*
+				if (this.world.getCellHeight(newX, newY) <= 0)
+				{
+					this.move();
+					return;
+				}
+				/**/
 				world.getAgents().updateAgent(this, newX, newY);
 
 			}
@@ -322,65 +343,7 @@ public class PredaAgent extends Animal implements Killable
 
 	}
 	/**/
-	public void moveto(int[] pos)
-	{
-		System.out.println("Moveto");
-		if (x == pos[0] && y == pos[1])
-		{
-
-			return;
-		}
-		else
-		{
-			if (age % slowliness == 0)
-			{
-
-
-
-				int diffX = x - pos[0];
-				int diffY = y - pos[1];
-				//System.out.println("diffX = " + diffX);
-				//System.out.println("diffY = " + diffY);
-
-				int newX = this.x;
-				int newY = this.y;
-
-				int e = 1; // e : sign
-
-
-				if (x != pos[0])
-				{
-					if (Math.abs(diffX) > world.getWidth()/2)
-					{
-						e = -1;
-
-					}
-					else
-					{
-						e = 1;
-					}
-					newX = ( newX - e * diffX/Math.abs(diffX) +  this.world.getWidth() ) % this.world.getWidth() ;
-
-				}
-				if (y != pos[1])
-				{
-					if (Math.abs(diffY) > world.getHeight()/2)
-					{
-						e = -1;
-					}
-					else
-					{
-						e = 1;
-					}
-					newY = ( newY - e * diffY/Math.abs(diffY) +  this.world.getHeight() ) % this.world.getHeight() ;
-				}
-
-				world.getAgents().updateAgent(this, newX, newY);
-
-			}
-		}
-
-	}
+	
 /**/
 	/* public void step() */
 	public void step()
@@ -390,9 +353,16 @@ public class PredaAgent extends Animal implements Killable
 		{
 		case ALIVE :
 
+			if (world.getmyLava().isLava(x, y))
+			{
+				this.currState = BURNING;
+				break;
+			}
+			
 			if (health <= 0 || age >= deathAge || energy <= 0)
 			{
 				currState = Animal.DEAD;
+				//System.out.print(1);
 				return;
 			}
 
@@ -401,7 +371,7 @@ public class PredaAgent extends Animal implements Killable
 			{
 			
 			case NORMAL :
-				if (Math.random() < 0.005) // 0.0005
+				if (age >= birthAge && Math.random() < 0.005) // 0.0005
 				{
 					behavior = RUT;
 
@@ -462,6 +432,9 @@ public class PredaAgent extends Animal implements Killable
 					//System.out.println("searchingForPrey... [" + this.target.getCoordinate()[0] + ", " + this.target.getCoordinate()[1] + "]");
 
 					this.hunt();
+					//target = null;
+					this.searchForPrey();
+
 				}
 				else
 				{
@@ -489,7 +462,21 @@ public class PredaAgent extends Animal implements Killable
 			}
 
 			break;
+		case BURNING :
+			if (health <= 0 || age >= deathAge)
+			{
+				currState = Animal.DEAD;
+				return;
+			}
+			move();
+			health--;
+			if (Math.random() < 0.0025)
+			{
+				this.currState = ALIVE;
+			}
+			break;
 		}
+		
 		this.age++;
 		this.energy--;
 
@@ -595,7 +582,7 @@ public void step()
 
 
 			break;
-		case DEAD: // Burning
+		case DEAD:
 
 			gl.glColor3f(1.f,1.f,0.f);
 			/*Cote blanc*/
@@ -623,7 +610,42 @@ public void step()
 			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
 			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight);
 			/*Chapeau jaune*/
-			gl.glColor3f(1.0f,1.f,0.f);
+			gl.glColor3f(0.5f,0.f,0.5f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
+
+			break;
+			
+		case BURNING :
+			gl.glColor3f(1.f,1.f,0.f);
+			/*Cote blanc*/
+			gl.glColor3f(1.f,0.f,0.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY-lenY, height*normalizeHeight);
+			/*Cote blanc*/
+			gl.glColor3f(1.f,0.f,0.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY+lenY, height*normalizeHeight);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY+lenY, height*normalizeHeight);
+			/*Cote blanc*/
+			gl.glColor3f(1.f,0.f,0.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY-lenY, height*normalizeHeight);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY+lenY, height*normalizeHeight);
+			/*Cote blanc*/
+			gl.glColor3f(1.f,0.f,0.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY+lenY, height*normalizeHeight);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
+			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight);
+			/*Chapeau jaune*/
+			gl.glColor3f(0.5f,0.f,0.5f);
 			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight + 4.f);
 			gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);
 			gl.glVertex3f( offset+x2*stepX+lenX, offset+y2*stepY+lenY, height*normalizeHeight + 4.f);

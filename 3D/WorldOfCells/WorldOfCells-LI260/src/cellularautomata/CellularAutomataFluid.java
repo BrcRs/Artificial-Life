@@ -86,18 +86,27 @@ public class CellularAutomataFluid extends CellularAutomata {
 				////System.out.print("|" + Buffer0[x][y]);
 				if (Buffer0[x][y] <= 0)
 				{
-					/**/
 					float color[] = new float[3];
+					if (world.getCellHeight(x, y) <= 0)
+					{
+						color[0] = 0.1f;
+						color[1] = 0.1f;
+						color[2] = 0.5f;
+					}
+					else
+					{
+					/**/
+					
 					color[0] = 0.2f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
 					color[1] = 0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
 					color[2] =  0.1f + 0.4f * (float) world.getCellHeight(x, y) / (float)world.getMaxEverHeight();
-
+					}
 					this.world.cellsColorValues.setCellState(x, y, color);
 					/**/
 					continue;
 				}
 				//System.out.print(" " + Buffer0[x][y]);
-				if (world.getIteration() % 100 == 0 && Buffer0[x][y] > 1)
+				if (/**/world.getIteration() % 100 == 0  && /**/Buffer0[x][y] > 1)
 				{
 
 						for (int i = -1 ; i <= 1 ; i++)
@@ -112,7 +121,7 @@ public class CellularAutomataFluid extends CellularAutomata {
 								{
 									continue;
 								}
-								if (world.getCellHeight((x + i + _dx) % _dx, (y + j + _dy) % _dy)/* + Buffer0[(x + i + _dx) % _dx][(y + j + _dy) % _dy] */<= world.getCellHeight(x, y)/* + Buffer0[x][y]*/)
+								if (world.getCellHeight((x + i + _dx) % _dx, (y + j + _dy) % _dy)/* + Buffer1[(x + i + _dx) % _dx][(y + j + _dy) % _dy] /**/<= world.getCellHeight(x, y)/** + Buffer1[x][y]/**/)
 								{
 									Buffer1[x][y] -= 1;
 									Buffer1[(x + i + _dx) % _dx][(y + j + _dy) % _dy] += 1;

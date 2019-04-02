@@ -25,7 +25,8 @@ public abstract class World {
     protected CellularAutomataFluid myLava;
      /**/
 
-
+    
+    
 	protected int dxCA;
 	protected int dyCA;
 
@@ -111,12 +112,11 @@ public abstract class World {
 				}
     	/*  */
     	
-    	myAgents.stepinit();
+    	myAgents.step();
     	
     	stepCellularAutomata();
     	stepAgents();
     	
-    	myAgents.stepfinalize();
     	
     	// add some LAVA
     	myLava.stepinit();

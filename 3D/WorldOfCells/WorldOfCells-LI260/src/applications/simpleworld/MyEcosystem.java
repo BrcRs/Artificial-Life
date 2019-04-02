@@ -55,7 +55,7 @@ public class MyEcosystem {
 
 		//Landscape myLandscape = new Landscape(myWorld,landsList.get(i), 0.4, 0.5);
 		GenerateLSImageFromCA.createImageFromCA(100, 100, (int)(Math.random()*30) + 20);
-		Landscape myLandscape = new Landscape(myWorld,"randomLS.png", 0.4, 0.1);
+		Landscape myLandscape = new Landscape(myWorld,"randomLS.png", 0.4, 0.15);
 
 
 		Landscape.run(myLandscape);

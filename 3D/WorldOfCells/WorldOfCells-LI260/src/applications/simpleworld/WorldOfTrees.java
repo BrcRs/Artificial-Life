@@ -26,7 +26,7 @@ public class WorldOfTrees extends World {
     	super.init(__dxCA, __dyCA, landscape);
     	int cellState;
 
-      myAgents = new CellularAutomataAgents(__dxCA, __dyCA, true);
+      myAgents = new CellularAutomataAgents(__dxCA, __dyCA, true, this);
       myLava = new CellularAutomataFluid(this, __dxCA, __dyCA, true);
 
     	// add colors
@@ -92,16 +92,26 @@ public class WorldOfTrees extends World {
       myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
       myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
       myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
-      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
-      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
-      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
+//      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
+//      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
+//      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
+//      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
+//      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
+//      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
 
       myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
-      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
+      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(90,90,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
+      myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
 
+      
       myAgents.updateAgentInitially(new ProieAgent(90,90,this), 90, 90);
 
       myAgents.stepfinalize();
@@ -109,6 +119,7 @@ public class WorldOfTrees extends World {
     	//uniqueDynamicObjects.add(new TreeAgent(65,65,this));
 
     	// populate with trees
+      myAgents.stepinit();
     	for (int i = 0 ; i < __dxCA ; i++)
     	{
     		for (int j = 0 ; j < __dyCA ; j++)
@@ -118,16 +129,21 @@ public class WorldOfTrees extends World {
     			{
     				if (Math.random() < 0.005)
     				{
-    					uniqueDynamicObjects.add(new TreeAgent(i,j,this));
+//    					uniqueDynamicObjects.add(new TreeAgent(i,j,this));
+    					myAgents.updateAgentInitially(new TreeAgent(i,j,this), i, j);
     				}
     				else
     				{
-    				uniqueDynamicObjects.add(new GrassAgent(i,j,this)); // Creation de l'herbe
+//    				uniqueDynamicObjects.add(new GrassAgent(i,j,this)); // Creation de l'herbe
+    					if (Math.random() < 0.5)
+    					{
+    						myAgents.updateAgentInitially(new GrassAgent(i,j,this), i, j);
+    					}
     				}
     			}
     		}
     	}
-    	
+    	myAgents.stepfinalize();
     	// add some LAVA
     	myLava.stepinit();
     	myLava.setFluidLevel(50, 50, 8);
@@ -155,6 +171,7 @@ public class WorldOfTrees extends World {
 
     protected void initCellularAutomata(int __dxCA, int __dyCA, double[][] landscape)
     {
+
     	cellularAutomata = new ForestCA(this,__dxCA,__dyCA,cellsHeightValuesCA);
     	cellularAutomata.init();
     }
@@ -173,7 +190,7 @@ public class WorldOfTrees extends World {
     		this.uniqueDynamicObjects.get(i).step();
     	}
 
-      /**/
+      /* In CellularAutomataAgents *
         for (int i = 0 ; i < this.myAgents.getCurrentBuffer().length ; i++)
         {
           for (int j = 0 ; j < this.myAgents.getCurrentBuffer()[i].length ; j++)
