@@ -215,6 +215,87 @@ public class TreeAgent extends Plant implements Killable
         		break;
         	case BURNING: // Burning
         		
+    			/* FLAMMES */
+    			
+    			gl.glColor3f(1.f-(float)(0.2*Math.random()), 0.4f-(float)(0.4*Math.random()), 0.f);
+    			gl.glVertex3f( offset+x2*stepX-lenY/4.f, offset+y2*stepY+lenY/3.f, altitude );//2
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude + 12.f * (float)Math.random());//1
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/4.f, offset+y2*stepY-lenY/3.f, altitude );//4
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude+ 12.f * (float)Math.random() );//3
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/4.f, altitude  );//6
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//5
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/4.f, altitude  );//8
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//7
+
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/4.f - 2, offset+y2*stepY+lenY/3.f, altitude  );//2
+    			gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//1
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/4.f - 2, offset+y2*stepY-lenY/3.f, altitude  );//4
+    			gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude+ 4.f );//3
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/3.f - 2, offset+y2*stepY+lenY/4.f, altitude  );//6
+    			gl.glVertex3f( offset+x2*stepX - 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//5
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/3.f- 2, offset+y2*stepY-lenY/4.f, altitude  );//8
+    			gl.glVertex3f( offset+x2*stepX- 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//7
+
+
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/4.f+ 2, offset+y2*stepY+lenY/3.f, altitude  );//2
+    			gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//1
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/4.f+ 2, offset+y2*stepY-lenY/3.f, altitude  );//4
+    			gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//3
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/3.f+ 2, offset+y2*stepY+lenY/4.f, altitude  );//6
+    			gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//5
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/3.f+ 2, offset+y2*stepY-lenY/4.f, altitude  );//8
+    			gl.glVertex3f( offset+x2*stepX+ 2, offset+y2*stepY, altitude+ 12.f * (float)Math.random());//7
+
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/4.f, offset+y2*stepY+lenY/3.f-2, altitude  );//2
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude+ 12.f * (float)Math.random());//1
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/4.f, offset+y2*stepY-lenY/3.f-2, altitude  );//4
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude+ 12.f * (float)Math.random());//3
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/4.f-2, altitude  );//6
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude+ 12.f * (float)Math.random());//5
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/4.f-2, altitude );//8
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY-2, altitude+ 12.f * (float)Math.random() );//7
+
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/4.f, offset+y2*stepY+lenY/3.f+2, altitude  );//2
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude+ 12.f * (float)Math.random());//1
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/4.f, offset+y2*stepY-lenY/3.f+2, altitude );//4
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude + 12.f * (float)Math.random());//3
+
+
+    			gl.glVertex3f( offset+x2*stepX-lenY/3.f, offset+y2*stepY+lenY/4.f+2, altitude  );//6
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude+ 12.f * (float)Math.random());//5
+
+    			gl.glVertex3f( offset+x2*stepX+lenY/3.f, offset+y2*stepY-lenY/4.f+2, altitude  );//8
+    			gl.glVertex3f( offset+x2*stepX, offset+y2*stepY+2, altitude+ 12.f * (float)Math.random());//7
+
+    			
+    			/* FIN FLAMMES */
+
+        		
         		gl.glColor3f(0.4f,0.3f-(float)(0.2*Math.random()),0.0f);
         		/* Tronc de l'arbre */
                 gl.glVertex3f( offset+x2*stepX-lenX, offset+y2*stepY-lenY, height*normalizeHeight);

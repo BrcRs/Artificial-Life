@@ -18,6 +18,7 @@ public class Animal extends Agent implements Killable {
 	protected int deathAge;
 
 	protected int health;
+	protected int healthMax;
 
 	protected Animal mate;
 
@@ -64,6 +65,8 @@ public class Animal extends Agent implements Killable {
 	{
 		super(__x, __y, __world);
 		health = 200;
+		healthMax = health;
+
 		age = 0;
 		mate = null;
 		sightRange = 5;

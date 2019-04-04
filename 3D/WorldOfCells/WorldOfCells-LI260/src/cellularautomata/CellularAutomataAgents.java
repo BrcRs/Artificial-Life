@@ -8,6 +8,8 @@ import applications.simpleworld.AgentList;
 import applications.simpleworld.Agent;
 import applications.simpleworld.Animal;
 import applications.simpleworld.Plant;
+import applications.simpleworld.PredaAgent;
+import applications.simpleworld.ProieAgent;
 import cellularautomata.LsCell;
 import worlds.World;
 
@@ -227,6 +229,15 @@ public class CellularAutomataAgents extends CellularAutomata {
 						}
 						if (statet == Animal.DEAD)
 						{
+							if (ani instanceof ProieAgent)
+							{
+								ProieAgent.nbIndividusProie -= 1;
+							}
+							
+							if (ani instanceof PredaAgent)
+							{
+								PredaAgent.nbIndividusPreda -= 1;
+							}
 							//System.out.println("On retire un mort");
 							Buffer1[x][y].remove(ani);
 							deaths += 1;

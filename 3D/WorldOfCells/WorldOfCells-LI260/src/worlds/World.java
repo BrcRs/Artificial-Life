@@ -9,6 +9,9 @@ import javax.media.opengl.GL2;
 
 import applications.simpleworld.Agent;
 import applications.simpleworld.AgentList;
+import applications.simpleworld.ProieAgent;
+import applications.simpleworld.PredaAgent;
+
 import cellularautomata.*;
 
 import objects.*;
@@ -111,6 +114,10 @@ public abstract class World {
 		{
 				}
     	/*  */
+    	
+    	System.out.println("Nombre de proies : " + ProieAgent.nbIndividusProie);
+    	System.out.println("Nombre de predas : " + PredaAgent.nbIndividusPreda);
+
     	
     	myAgents.step();
     	

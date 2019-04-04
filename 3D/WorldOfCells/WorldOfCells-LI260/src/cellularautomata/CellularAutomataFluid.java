@@ -135,9 +135,9 @@ public class CellularAutomataFluid extends CellularAutomata {
 					
 				}
 				float color[] = new float[3];
-				color[0] = 0.8f-(float)(0.2*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
-				color[1] = 0.2f-(float)(0.3*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
-				color[2] = 0.1f + 0.1f;
+				color[0] = 1.f-(float)(0.2*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
+				color[1] = 0.4f-(float)(0.4*Math.random())/* + 0.1f * (float) Buffer0[x][y] % 100*/;
+				color[2] = 0.f;
 
 				this.world.cellsColorValues.setCellState(x, y, color);
 

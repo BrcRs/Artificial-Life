@@ -92,12 +92,8 @@ public class WorldOfTrees extends World {
       myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
       myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
       myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
-//      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-//      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
-//      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-//      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
-//      myAgents.updateAgentInitially(new PredaAgent(70,70,this, "Parent1"), 70, 70);
-//      myAgents.updateAgentInitially(new PredaAgent(60,60,this, "Parent2"), 60, 60);
+//      
+
 
       myAgents.updateAgentInitially(new ProieAgent(80,80,this), 80, 80);
       myAgents.updateAgentInitially(new ProieAgent(90,90,this), 80, 80);
