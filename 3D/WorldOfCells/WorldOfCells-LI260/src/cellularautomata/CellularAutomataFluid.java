@@ -83,6 +83,12 @@ public class CellularAutomataFluid extends CellularAutomata {
 		{
 			for ( int y = 0 ; y != _dy ; y++ )
 			{
+				/*
+				if (world.getCellHeight(x, y) == 0)
+				{
+					world.setCellHeight(x, y, Math.random() * 0.2 );
+				}
+				/**/
 				////System.out.print("|" + Buffer0[x][y]);
 				if (Buffer0[x][y] <= 0)
 				{

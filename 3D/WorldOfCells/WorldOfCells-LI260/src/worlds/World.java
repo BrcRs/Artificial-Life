@@ -164,6 +164,12 @@ public abstract class World {
     {
     	return cellsHeightValuesCA.getCellState(x%dxCA,y%dyCA);
     }
+    
+    public void setCellHeight(int x, int y, double newHeight) // used by the visualization code to set correct height values
+    {
+    	cellsHeightValuesCA.setCellState(x, y, newHeight);
+    }
+
 
     // ----
 
