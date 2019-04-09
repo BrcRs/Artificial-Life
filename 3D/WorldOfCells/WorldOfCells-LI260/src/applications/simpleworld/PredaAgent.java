@@ -431,7 +431,7 @@ public class PredaAgent extends Animal implements Killable
 					origin[1] = y;
 				}
 				
-				if (energy >= feedFromEnergyLevel)
+				if (energy >= 2*feedFromEnergyLevel)
 				{
 					this.behavior = NORMAL;
 					startHUNTING = true;
