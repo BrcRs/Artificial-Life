@@ -26,9 +26,8 @@ Supprimez les dossiers suivants :
 - /projet-2I013-master/interfaces,
 - /projet-2I013-master/landscapegenerator,
 - et enfin /projet-2I013-master/objects.
-- 
-Téléchargez le backup local de JOGL : http://pages.isir.upmc.fr/~bredeche/Teaching/2i013/2018-
-2019/JOGL.zip
+
+Téléchargez le backup local de JOGL : http://pages.isir.upmc.fr/~bredeche/Teaching/2i013/2018-2019/JOGL.zip
 
 Décompressez cette archive à la racine du projet, dans un dossier que vous créerez, nommez-le
 javalib.
@@ -38,9 +37,8 @@ Ouvrez eclipse. Suivez le tutoriel Tutorial-javaOpenGL.pdf fourni, mais ignorez 
 
 Suivez plutôt les instructions suivantes :
 
-Importez dans Eclipse le dossier /projet-2I013-master/3D/WorldOfCells en tant que projet. (file-
->import->projects from folder)
->
+Importez dans Eclipse le dossier /projet-2I013-master/3D/WorldOfCells en tant que projet. (file->import->projects from folder)
+
 Dans Eclipse, cliquez droit sur le projet (le dossier bleu avec la lettre J) dans le panneau à gauche, et
 sélectionnez Build Path -> Add Library... . Dans la fenêtre, sélectionnez ‘User Library’ puis cochez
 ‘jogl-2.0’. Cliquez sur Finish.
